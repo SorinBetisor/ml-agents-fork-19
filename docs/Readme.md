@@ -29,6 +29,43 @@ Download Unity Clone: [https://github.com/SorinBetisor/ml-agents-fork-19](https:
    - Search for any missing packages, most likely **TextMeshPro**.
    - Download the missing packages.
 
-## Existing Documentation & Credentials
+## GitHub Setup Commands
 
-For further details on features, installation, and other documentation, refer to the original repository's [documentation](https://github.com/Unity-Technologies/ml-agents/tree/release_21_docs/docs/) and credentials provided in both the forked and original repositories.
+To set up the repository locally, follow these commands:
+
+Clone the repository:
+   ```bash
+   git clone https://github.com/SorinBetisor/ml-agents-fork-19.git
+```
+Check out the release-21-branch:
+```bash
+git checkout release-21-branch
+git pull
+```
+
+## Conda Environment Setup
+Create a new conda environment with Python 3.10.12:
+```bash
+conda create -n mlagents python=3.10.12
+conda activate mlagents
+```
+Install necessary packages:
+```bash
+python -m pip install ./ml-agents-envs
+python -m pip install ./ml-agents
+```
+
+## CMake Errors
+If you encounter errors related to CMake:
+```bash
+brew install cmake   (mac)
+choco install cmake  (windows)
+```
+
+## Existing Documentation & Credentials
+For further details on features, installation, and other documentation, refer to the original repository's documentation and credentials provided in both the forked and original repositories.
+
+
+
+
+   
