@@ -76,9 +76,10 @@ public class Ball3DAgent : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         var continuousActionsOut = actionsOut.ContinuousActions;
-        continuousActionsOut[0] = -Input.GetAxis("Horizontal");
-        continuousActionsOut[1] = Input.GetAxis("Vertical");
+        continuousActionsOut[0] = -Input.GetAxis("Horizontal"); // For horizontal movement (left/right arrow or A/D keys)
+        continuousActionsOut[1] = Input.GetAxis("Vertical");   // For vertical movement (up/down arrow or W/S keys)
     }
+
 
     public void SetBall()
     {
