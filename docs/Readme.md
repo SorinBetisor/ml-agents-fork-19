@@ -1,4 +1,4 @@
-# Unity ML-Agents Toolkit Fork
+# Unity ML-Agents Toolkit Fork - Group 19
 
 [![docs badge](https://img.shields.io/badge/docs-reference-blue.svg)](https://github.com/Unity-Technologies/ml-agents/tree/release_21_docs/docs/)
 
@@ -7,13 +7,26 @@
 ([latest release](https://github.com/Unity-Technologies/ml-agents/releases/tag/latest_release))  
 ([all releases](https://github.com/Unity-Technologies/ml-agents/releases))
 
+## Project Overview
+This project focuses on the implementation and analysis of Deep Reinforcement Learning (DRL) algorithms applied to agents capable of navigating and making decisions in complex, real-time 3D environments. Using the Unity game Engine and Unity ML-Agents Toolkit, we aim to develop a system where agents can learn from their environment and improve their behaviour through constant interactiong with different game environments.
+
+Our goal is to test the effectiveness of these DRL algorithms and make the agents more adaptable to complex environments, focusing on their ability to make real-time decisions and interact easily with the game world.
+
+## Key Objectives
+- **DRL Exploration**: Implement, train, and analyze DRL algorithms to control agents in real-time 3D environments.
+- **Improve Agent Behaviour**: Optimize the learning models to help the agents make better decisions and respond more effectively in different game scenarios.
+- **Performance Monitoring**: Analyse how well the models perform and find ways to improve computational efficiency.
+  
 ## Setup the Project
 
-### Prefab
+### 1. Download the Project
 
-Download Unity Clone: [https://github.com/SorinBetisor/ml-agents-fork-19](https://github.com/SorinBetisor/ml-agents-fork-19)
+Clone the Unity ML-Agents forked repository:
+```bash
+git clone https://github.com/SorinBetisor/ml-agents-fork-19.git
+```
 
-### Initialization of Project
+### 2. Initialization of Project
 
 1. Open **Unity Hub** and navigate to **Projects**.
 2. Click on **Add**, then select **Add project from disk**.
@@ -56,10 +69,16 @@ python -m pip install ./ml-agents
 ```
 
 ## CMake Errors
-If you encounter errors related to CMake:
+If you encounter errors related to CMake, install CMake with the following commands based on your operating system:
+
+- On macOS:
 ```bash
-brew install cmake   (mac)
-choco install cmake  (windows)
+brew install cmake 
+```
+
+- On Windows:
+```bash
+choco install cmake 
 ```
 
 ## Existing Documentation & Credentials
