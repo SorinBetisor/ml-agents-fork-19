@@ -68,28 +68,86 @@ python -m pip install ./ml-agents-envs
 python -m pip install ./ml-agents
 ```
 
-## CMake Errors
-If you encounter errors related to CMake, install CMake with the following commands based on your operating system:
+## CMake 
+Is required to build certain components in the Unity ML-Agents environment. Depending on your operating system, follow the instructions below to install CMake and resolve any potential errors.
 
-- On macOS:
-```bash
-brew install cmake 
-```
+Installing CMake (Windows)
+  Install CMake via Chocolatey:
+   ```bash
+   choco install cmake
+   ```
 
-- On Windows:
-```bash
-choco install cmake 
-```
+Installing CMake (macOS):
+1. Install Homebrew (if not already installed):
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+2. Once Homebrew is installed, install CMake via Homebrew:
+   ```bash
+   brew install cmake
+   ```
 
-- On Linux:
-```bash
-sudo apt update
-sudo apt install cmake
-```
+Installing CMake (Linux):
+1. Update your package manager and install CMake:
+   ```bash
+   sudo apt update
+   sudo apt install cmake
+   ```
+2. Verify the installation:
+   ```bash
+   cmake --version
+   ```
+   
+### CMake Errors
+
+**"CMake not found" Error**: this error typically means that CMake isn't installed or is not in your system's PATH.
+
+-**Windows**: during installation, ensure you check the box to "Add CMake to the system PATH for all users".
+-**macOS**: ensure you run the following to add CMake to your path.
+  ```bash
+  echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.zshrc
+  
+  source ~/.zshrc
+  ```
+-**Linux**: make sure CMake is installed and in your PATH by checking:
+  ```bash
+  cmake --version
+  ```
+
+**"CMake version mismatch" Error**
+
+Ensure you have the correct version of CMake installed:
+  ```bash
+  cmake --version
+  ```
+If the installed version is incompatible, update CMake using the package manager:
+
+-**Windows**:
+  ```bash
+  choco upgrade cmake
+  ```
+-**macOS**:
+  ```bash
+  brew upgrade cmake
+  ```
+-**Linux**:
+  ```bash
+  sudo apt upgrade cmake
+  ```
+**Build Errors Related to CMake Cache**
+If you encounter build errors due to cache issues, you can clear the CMake cache by removing the CMakeCache.txt and CMakeFiles/ from the directory, then rerun the CMake command:
+
+  ```bash
+  rm -rf CMakeCache.txt CMakeFiles/
+  
+  cmake .
+  ```
 
 ## Existing Documentation & Credentials
 For further details on features, installation, and other documentation, refer to the original repository's documentation and credentials provided in both the forked and original repositories.
 
+## References
+- Original fork from Dennis Soemers: : https://github.com/DennisSoemers/ml-agents/tree/fix-numpy-release-21-branch
 
 
 
