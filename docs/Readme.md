@@ -81,6 +81,12 @@ brew install cmake
 choco install cmake 
 ```
 
+- On Linux:
+```bash
+sudo apt update
+sudo apt install cmake
+```
+
 ## Existing Documentation & Credentials
 For further details on features, installation, and other documentation, refer to the original repository's documentation and credentials provided in both the forked and original repositories.
 
