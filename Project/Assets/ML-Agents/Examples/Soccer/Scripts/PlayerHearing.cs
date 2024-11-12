@@ -24,4 +24,32 @@ public class PlayerHearing : MonoBehaviour, ISensor
         heardSound = false; // Reset the state after checking
         return heard;
     }
+
+    public string GetName() {
+
+    }
+
+    public int Write(ObservationWriter writer) {
+
+    }
+
+    public byte[] GetCompressedObservation() {
+
+    }
+
+    public void Update() {
+
+    }
+
+    public void Reset() {
+
+    }
+
+    public CompressionSpec GetCompressionSpec() {
+
+    }
+
+    public ObservationSpec GetObservationSpec() {
+        
+    }
 }
