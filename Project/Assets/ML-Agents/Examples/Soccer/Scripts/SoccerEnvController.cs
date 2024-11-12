@@ -114,6 +114,12 @@ public class SoccerEnvController : MonoBehaviour
 
     }
 
+    public void NotifyPlayersHearing(Vector3 position) {
+        foreach (var agent in AgentsList) {
+            NotifyPlayersHearing 
+        }
+    }
+
 
     public void ResetScene()
     {
