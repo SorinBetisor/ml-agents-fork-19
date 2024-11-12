@@ -1,44 +1,37 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BallSignal : MonoBehaviour
 {
-    private List<PlayerHearing> nearbyPlayers = new List<PlayerHearing>();
+    private List<HearingAgent> nearbyAgents = new List<HearingAgent>();
 
     private void OnTriggerEnter(Collider other) 
     {
-        PlayerHearing player = other.GetComponent<PlayerHearing>();
-        if (player != null) 
+        HearingAgent agent = other.GetComponent<HearingAgent>();
+        if (agent != null) 
         {
-            nearbyPlayers.Add(player);
+            nearbyAgents.Add(agent);
         }
     }
 
     private void OnTriggerExit(Collider other) 
     {
-        PlayerHearing player = other.GetComponent<PlayerHearing>();
-        if (player != null) {
-            nearbyPlayers.Remove(player);
+        HearingAgent agent = other.GetComponent<HearingAgent>();
+        if (agent != null) 
+        {
+            nearbyAgents.Remove(agent);
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        foreach(var player in nearbyPlayers)
+        foreach (var agent in nearbyAgents)
         {
-            player.ReceiveSignal(transform.position);
+            PlayerHearing hearing = agent.GetComponent<PlayerHearing>();
+            if (hearing != null)
+            {
+                hearing.ReceiveSignal(transform.position);
+            }
         }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
