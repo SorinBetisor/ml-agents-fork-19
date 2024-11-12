@@ -14,8 +14,8 @@ namespace Unity.MLAgentsExamples
         public float shiftAdd = 250.0f; // multiplied by how long shift is held.  Basically running
         public float maxShift = 1000.0f; // Maximum speed when holdin gshift
         public float camSens = 0.25f; // How sensitive it with mouse
-        public bool rotateOnlyIfMousedown = true;
-        public bool movementStaysFlat = true;
+        public bool rotateOnlyIfMousedown = false;
+        public bool movementStaysFlat = false;
 
         Vector3
             m_LastMouse =
@@ -90,6 +90,17 @@ namespace Unity.MLAgentsExamples
         {
             // returns the basic values, if it's 0 than it's not active.
             var pVelocity = new Vector3();
+
+            if (Input.GetKey(KeyCode.E))
+            {
+                pVelocity += new Vector3(0, 1, 0);
+            }
+
+            if (Input.GetKey(KeyCode.Q))
+            {
+                pVelocity += new Vector3(0, -1, 0);
+            }
+
             if (Input.GetKey(KeyCode.W))
             {
                 pVelocity += new Vector3(0, 0, 1);

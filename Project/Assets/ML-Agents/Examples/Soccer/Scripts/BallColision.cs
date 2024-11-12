@@ -13,7 +13,8 @@ public class BallColision : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "purpleAgent" || col.gameObject.tag == "blueAgent" || col.gameObject.tag == "wall"){
-            Debug.Log("sound");
+            Debug.Log("sound" + transform.position);
+
         }
     }
 }
