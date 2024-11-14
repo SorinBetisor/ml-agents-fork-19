@@ -2,6 +2,9 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
+using Unity.MLAgents.Sensors;
+using System.Linq;
+
 
 public enum Team
 {
@@ -18,6 +21,8 @@ public class AgentSoccer : Agent
     // * wall
     // * own teammate
     // * opposing player
+
+    private MemorySensorA memorySensor;
 
     public enum Position
     {
@@ -94,6 +99,7 @@ public class AgentSoccer : Agent
 
         m_ResetParams = Academy.Instance.EnvironmentParameters;
     }
+
 
     public void MoveAgent(ActionSegment<int> act)
     {
