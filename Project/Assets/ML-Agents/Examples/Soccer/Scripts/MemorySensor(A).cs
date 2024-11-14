@@ -36,7 +36,7 @@ public class MemorySensorA : MonoBehaviour, ISensor
     void Start()
     {
         // Find ball after all objects are initialized
-        ball = GameObject.FindGameObjectWithTag("Ball");
+        ball = GameObject.FindGameObjectWithTag("ball");
         if (ball != null)
         {
             ballRigidbody = ball.GetComponent<Rigidbody>();
