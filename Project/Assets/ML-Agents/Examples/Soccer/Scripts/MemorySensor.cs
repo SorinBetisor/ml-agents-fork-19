@@ -12,9 +12,9 @@ public class MemorySensorA : MonoBehaviour, ISensor
     private Rigidbody agentRigidbody;
     private GameObject ball;
     private Rigidbody ballRigidbody;
-    private int observationSize = 15;
+    public int observationSize = 15;
     private Queue<float[]> memoryQueue;
-    private int memorySize = 5;
+    public int memorySize = 5;
     
     private string sensorName = "MemorySensorA";
     private ObservationSpec observationSpec;
