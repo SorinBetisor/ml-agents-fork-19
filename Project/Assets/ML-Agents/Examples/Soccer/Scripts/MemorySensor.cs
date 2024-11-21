@@ -5,7 +5,6 @@ using Unity.MLAgents.Policies;
 using Unity.MLAgents.Sensors;
 using System.Collections.Generic;
 
-
 public class MemorySensorA : MonoBehaviour, ISensor
 {
     private Transform agentTransform;
@@ -31,7 +30,6 @@ public class MemorySensorA : MonoBehaviour, ISensor
         // Initialize observation spec
         observationSpec = ObservationSpec.Vector(observationSize * memorySize);
     }
-
     
     void Start()
     {
