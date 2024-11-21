@@ -22,8 +22,6 @@ public class AgentSoccer : Agent
     // * own teammate
     // * opposing player
 
-    private MemorySensorA memorySensor;
-
     public enum Position
     {
         Striker,

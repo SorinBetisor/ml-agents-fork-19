@@ -289,6 +289,22 @@ namespace Unity.MLAgents.Sensors
             get { return m_RayPerceptionOutput; }
         }
 
+        /// <summary>
+        /// The most recent raycast inputs.
+        /// </summary>
+        public RayPerceptionInput RayPerceptionInput
+        {
+            get { return m_RayPerceptionInput; }
+        }
+
+        /// <summary>
+        /// The most recent raycast observations.
+        /// </summary>
+        public float[] Observations
+        {
+            get { return m_Observations; }
+        }
+
         void SetNumObservations(int numObservations)
         {
             m_ObservationSpec = ObservationSpec.Vector(numObservations);
