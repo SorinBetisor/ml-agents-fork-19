@@ -4,15 +4,16 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
 using Unity.MLAgents.Sensors;
 using System.Collections.Generic;
+using System.Collections;
 using System;
 using Unity.Collections;
 using Unity.Jobs;
 
 public class RayMemorySensor : ISensor
 {
-    private float[] m_CurrentObservation;
+    private float[] m_PastObservation;
     private Queue<float[]> MemoryQueue;
-    public int MemorySize = 2;
+    public int MemorySize = 3;
     ObservationSpec m_ObservationSpec;
     float[] m_Observations;
     string m_Name;
@@ -28,9 +29,12 @@ public class RayMemorySensor : ISensor
         m_Name = name;
         m_RayPerceptionSensor = rayInput;
         MemoryQueue = new Queue<float[]>();
-        m_CurrentObservation = new float[0];
+        m_PastObservation = new float[0];
 
         SetNumObservations(m_RayPerceptionSensor.RayPerceptionInput.OutputSize() * MemorySize);
+
+        //initialize as queue with empty observations
+        Reset();
     }
 
     void SetNumObservations(int numObservations)
@@ -48,13 +52,14 @@ public class RayMemorySensor : ISensor
     public int Write(ObservationWriter writer)
     {
         Array.Clear(m_Observations, 0, m_Observations.Length);
-        // int index = 0;
+        int index = 0;
 
         // For each observation, write the information to the observation writer
-        // foreach (var observation in MemoryQueue)
-        // {
-        //     m_Observations.CopyTo(m_Observations, m_RayPerceptionSensor.Observations.Length * index++);
-        // }
+        foreach (var observation in MemoryQueue)
+        {
+            Array.Copy(observation, 0, m_Observations, m_RayPerceptionSensor.Observations.Length * index, observation.Length);
+            index++;
+        }
 
         writer.AddList(m_Observations);
         return m_Observations.Length;
@@ -63,21 +68,34 @@ public class RayMemorySensor : ISensor
     /// <inheritdoc/>
     public void Update()
     {
-        if (m_CurrentObservation.Length > 0)
+        // Only enqueue if we have valid observations
+        if (m_RayPerceptionSensor.Observations != null && m_RayPerceptionSensor.Observations.Length > 0)
         {
-            MemoryQueue.Enqueue(m_CurrentObservation);
-        }
+            // Make a copy of the current observation to store in memory
+            m_PastObservation = new float[m_RayPerceptionSensor.Observations.Length];
+            Array.Copy(m_RayPerceptionSensor.Observations, m_PastObservation, m_RayPerceptionSensor.Observations.Length);
+            MemoryQueue.Enqueue(m_PastObservation);
 
-        if (MemoryQueue.Count > MemorySize)
-        {
-            MemoryQueue.Dequeue();
+            if (MemoryQueue.Count > MemorySize)
+            {
+                MemoryQueue.Dequeue();
+            }
         }
-
-        m_CurrentObservation = m_RayPerceptionSensor.Observations;
     }
 
     /// <inheritdoc/>
-    public void Reset() { }
+    public void Reset()
+    {
+        MemoryQueue.Clear();
+        m_PastObservation = new float[0];
+        Array.Clear(m_PastObservation, 0, m_PastObservation.Length);
+
+        for (int i = 0; i < MemorySize; i++)
+        {
+            var emptyObservation = new float[m_RayPerceptionSensor.Observations.Length];
+            MemoryQueue.Enqueue(emptyObservation);
+        }
+    }
 
     /// <inheritdoc/>
     public ObservationSpec GetObservationSpec()
