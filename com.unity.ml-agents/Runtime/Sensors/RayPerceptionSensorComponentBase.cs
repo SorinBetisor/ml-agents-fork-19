@@ -11,7 +11,7 @@ namespace Unity.MLAgents.Sensors
     public abstract class RayPerceptionSensorComponentBase : SensorComponent
     {
         [HideInInspector, SerializeField, FormerlySerializedAs("sensorName")]
-        string m_SensorName = "RayPerceptionSensor";
+        string m_SensorName = "RayMemoSensor";
 
         /// <summary>
         /// The name of the Sensor that this component wraps.

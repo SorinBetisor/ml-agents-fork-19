@@ -2252,7 +2252,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 87eb8580dc84cd64ebf04ddd680b9ffe, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 8cd4584c2f2cb4c5fb51675d364e10ec, type: 3}
   m_InferenceDevice: 2
   m_BehaviorType: 0
   m_BehaviorName: SoccerTwos
@@ -2356,7 +2356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d473975da09964d47a2415eb27551268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: RayMemorySensor
+  m_ObservationStacks: 2
 --- !u!1 &1101518129530804
 GameObject:
   m_ObjectHideFlags: 0
@@ -2456,6 +2456,7 @@ GameObject:
   - component: {fileID: 114516244030127556}
   - component: {fileID: 404683423509059512}
   - component: {fileID: 8557426429796011212}
+  - component: {fileID: 4407819707001148420}
   m_Layer: 0
   m_Name: BlueStriker
   m_TagString: blueAgent
@@ -2641,6 +2642,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugCommandLineOverride: 
+--- !u!114 &4407819707001148420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131626411948014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d473975da09964d47a2415eb27551268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ObservationStacks: 2
 --- !u!1 &1141134673700168
 GameObject:
   m_ObjectHideFlags: 0
@@ -4258,7 +4272,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 87eb8580dc84cd64ebf04ddd680b9ffe, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 8cd4584c2f2cb4c5fb51675d364e10ec, type: 3}
   m_InferenceDevice: 2
   m_BehaviorType: 0
   m_BehaviorName: SoccerTwos
@@ -4362,7 +4376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d473975da09964d47a2415eb27551268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: RayMemorySensor
+  m_ObservationStacks: 2
 --- !u!1 &6442519122303792292
 GameObject:
   m_ObjectHideFlags: 0
@@ -4716,6 +4730,7 @@ GameObject:
   - component: {fileID: 2562571719799803906}
   - component: {fileID: 1018414316889932458}
   - component: {fileID: 6939753220642424022}
+  - component: {fileID: 2654568983291227992}
   m_Layer: 0
   m_Name: BlueStriker (1)
   m_TagString: blueAgent
@@ -4901,6 +4916,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugCommandLineOverride: 
+--- !u!114 &2654568983291227992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8360301818957399454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d473975da09964d47a2415eb27551268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ObservationStacks: 2
 --- !u!1 &8673569163220857793
 GameObject:
   m_ObjectHideFlags: 0
