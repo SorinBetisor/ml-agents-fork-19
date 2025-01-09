@@ -5,6 +5,7 @@ using Unity.MLAgents.Sensors;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
+using System;
 
 
 public class PlayerHearingSensor : ISensor
@@ -34,6 +35,16 @@ public class PlayerHearingSensor : ISensor
         Debug.Log(normalized);
 
         lastHeardPosition = normalized;
+    }
+
+    public Vector3 UpplyRotation(Vector3 position, float degrees) {
+        float angle = (float) degrees * Math.PI/180; // convert to radians
+        
+        float rotated_X = (float) (position.x * Math.Cos(angle) + position.z * Math.Sin(angle));
+        float rotated_Z = (float) (-(position.x * Math.Sin(angle)) + position.z * Math.Cos(angle));
+        Vector3 newPosition = new Vector3(rotated_X, position.y, rotated_Z);
+        
+        return newPosition;
     }
 
     //public Vector2 applyRotation(Vector2 pos, float angle){
