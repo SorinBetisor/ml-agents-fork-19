@@ -5,9 +5,11 @@ public class BallCollision : MonoBehaviour
     public GameObject area;
     [HideInInspector]
     public SoccerEnvController envController;
+    
 
     void Start()
     {
+    
         envController = area.GetComponent<SoccerEnvController>();
     }
 
