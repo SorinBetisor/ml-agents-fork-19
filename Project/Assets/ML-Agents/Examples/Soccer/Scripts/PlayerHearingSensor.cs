@@ -38,7 +38,7 @@ public class PlayerHearingSensor : ISensor
     }
 
     public Vector3 ApplyRotation(Vector3 position, float degrees) {
-        float angle = (float) degrees * Math.PI/180; // convert degrees to radians
+        float angle = (float) (degrees * Math.PI)/180f; // convert degrees to radians
         
         float rotated_X = (float) (position.x * Math.Cos(angle) + position.z * Math.Sin(angle));
         float rotated_Z = (float) (-position.x * Math.Sin(angle) + position.z * Math.Cos(angle));
