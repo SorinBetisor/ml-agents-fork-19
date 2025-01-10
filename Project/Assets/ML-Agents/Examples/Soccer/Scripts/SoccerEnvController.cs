@@ -117,11 +117,11 @@ public class SoccerEnvController : MonoBehaviour
     public void NotifyPlayersHearing(Vector3 position) {
         Debug.Log("sound");
         foreach (var agent in AgentsList) {
-            PlayerHearingSensor playerHearingSensor = agent.Agent.GetComponent<HearingSensorComponent>().GetHearingSensor();
+            HearingSensorComponent component = agent.Agent.GetComponent<HearingSensorComponent>();
 
-            if (playerHearingSensor != null) {
+            if (component != null) {
+                PlayerHearingSensor playerHearingSensor = component.GetHearingSensor();
                 playerHearingSensor.ReceiveSignal(position);
-
             }
         }
     }
