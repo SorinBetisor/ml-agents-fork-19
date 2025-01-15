@@ -143,6 +143,172 @@ If you encounter build errors due to cache issues, you can clear the CMake cache
   cmake .
   ```
 
+## Training Agents
+
+### Training Configuration
+Training configurations are defined in YAML files. Here's a basic example:
+
+```yaml
+behaviors:
+  3DBall:  # Your behavior name
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 64
+      buffer_size: 12000
+      learning_rate: 3.0e-4
+      beta: 5.0e-4
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 3
+    network_settings:
+      normalize: false
+      hidden_units: 128
+      num_layers: 2
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+    max_steps: 500000
+    time_horizon: 64
+    summary_freq: 10000
+```
+
+### Running Training
+
+To start training:
+1. Open a terminal window
+2. Navigate to your project directory
+3. Run the training command:
+```bash
+mlagents-learn config/ppo/3DBall.yaml --run-id=first3DBallRun
+```
+
+Key parameters:
+- `config/ppo/3DBall.yaml`: Path to your configuration file
+- `--run-id`: Unique identifier for your training run
+
+### Monitoring Training Progress
+
+There are two main ways to monitor your training progress:
+
+1. **Command Line Output**
+   During training, you'll see progress in your terminal:
+   ```bash
+   INFO:mlagents.trainers:first3DBallRun: 3DBall: Step: 1000. Mean Reward: 0.8. Std of Reward: 0.4.
+   ```
+
+2. **TensorBoard Visualization**
+   For detailed metrics and graphs:
+
+   a. Start TensorBoard (use either command):
+   ```bash
+   tensorboard --logdir results
+   # OR
+   tensorboard --logdir=results
+   ```
+
+   b. Open `localhost:6006` in your web browser
+
+   c. Key metrics to monitor:
+   - Environment/Cumulative Reward (ELO): Shows overall agent performance
+   - Policy/Learning Rate: Shows training progression
+   - Episode Length: Shows the length of each match, indicating how fast teh agents "score"
+
+   d. TensorBoard tips:
+   - Compare multiple runs by selecting different runs in the sidebar
+   - Smooth graphs using the slider in TensorBoard
+   - Export data for further analysis
+   - Use different tabs (SCALARS, IMAGES, GRAPHS) for different views of your training data
+
+Note: Training results are saved in the `results` directory, with each run in its own subdirectory based on the `run-id` you specified.
+
+### Creating Executable Environments
+
+To create an executable of your environment:
+
+1. In Unity Editor:
+   - Go to File > Build Settings
+   - Select your target platform
+   - Set architecture to x86_64
+   - Enable "Headless Mode" for server builds
+   - Click "Build"
+
+2. Training with executable:
+```bash
+mlagents-learn config/ppo/3DBall.yaml --env=./3DBall --run-id=training1
+```
+
+### Advanced Training Options
+
+1. **Resume Training**:
+```bash
+mlagents-learn config/ppo/3DBall.yaml --run-id=training1 --resume
+```
+
+2. **Initialize from Previous Model**:
+```bash
+mlagents-learn config/ppo/3DBall.yaml --run-id=training2 --initialize-from=training1
+```
+
+3. **Multiple Environment Instances**:
+```bash
+mlagents-learn config/ppo/3DBall.yaml --run-id=training1 --num-envs=2
+```
+
+### YAML Configuration Details
+
+Key configuration sections:
+
+1. **Hyperparameters**:
+```yaml
+hyperparameters:
+  batch_size: 64        # Number of experiences per iteration
+  buffer_size: 12000    # Number of experiences to collect before training
+  learning_rate: 3.0e-4 # Learning rate for neural network
+  beta: 5.0e-4         # Entropy regularization strength
+  epsilon: 0.2         # Trust region clipping value
+```
+
+2. **Network Settings**:
+```yaml
+network_settings:
+  normalize: false      # Whether to normalize observations
+  hidden_units: 128    # Number of units in hidden layers
+  num_layers: 2        # Number of hidden layers
+```
+
+3. **Reward Signals**:
+```yaml
+reward_signals:
+  extrinsic:
+    gamma: 0.99        # Discount factor for future rewards
+    strength: 1.0      # Relative strength of this reward
+```
+
+### Additional Training Limitations
+
+- Training only works with Mono scripting backend
+- GPU inference not supported on WebGL and GLES 3/2 mobile platforms
+- Headless mode doesn't support visual observations
+- Physics speed limited to 100x real-time
+- Training requires Unity 2019.4 or later
+
+### Troubleshooting Training Issues
+
+1. **Memory Issues**:
+   - Reduce `buffer_size` and `batch_size` in your YAML configuration
+   - Limit the number of concurrent environment instances
+
+2. **Performance Issues**:
+   - Enable GPU training when possible
+   - Adjust `time_horizon` and `summary_freq` values
+   - Consider using headless mode for faster training
+
+3. **Learning Issues**:
+   - Adjust `learning_rate` and `beta` values
+   - Increase `num_epoch` for more training iterations
+   - Modify network architecture (`hidden_units` and `num_layers`)
+
 ## Existing Documentation & Credentials
 For further details on features, installation, and other documentation, refer to the original repository's documentation and credentials provided in both the forked and original repositories.
 
