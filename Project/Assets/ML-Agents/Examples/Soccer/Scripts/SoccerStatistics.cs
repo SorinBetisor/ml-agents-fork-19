@@ -113,7 +113,7 @@ public class SoccerStatistics : MonoBehaviour
         // Show progress
         if (frames % (targetFrames / 100) == 0)
         {
-            Debug.Log(((double) frames / (double) targetFrames) * 100d + "% - " + (long) timer + " seconds in");
+            Debug.Log(TimeSpan.FromSeconds(timer).ToString(@"hh\:mm\:ss\:fff") + " - " + ((double) frames / (double) targetFrames) * 100d + "%");
         }
 
         if (frames % targetFrames == 0)
@@ -146,7 +146,7 @@ public class SoccerStatistics : MonoBehaviour
 
     public void LogFPS() {
         float averageFPS = frames / timer;
-        Debug.Log("Average FPS during testing: " + averageFPS + " FPS measured over " + (long) timer + "s");
+        Debug.Log("Average FPS during testing: " + averageFPS + " FPS measured over " + TimeSpan.FromSeconds(averageFPS).ToString(@"hh\:mm\:ss\:fff") + "s");
     }
 
     static void LogStatisticsTwoSamplePopulationMeanTest(double[] samplePoints_1, double[] samplePoints_2)
