@@ -7,7 +7,7 @@ using UnityEditor;
 
 public class SoccerStatistics : MonoBehaviour
 {
-    static public List<SoccerEnvController> children = new List<SoccerEnvController>();
+    static public List<SoccerEnvController> soccerEnvironments = new List<SoccerEnvController>();
     static private float[] criticalValueMapper = new float[] {
          1,  2,  3,  4,  5,  6,  7,  8,  9, 10,
         11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
@@ -52,8 +52,9 @@ public class SoccerStatistics : MonoBehaviour
         new float[] {0.253f, 0.524f, 0.842f, 1.036f, 1.282f, 1.645f, 1.960f}, // ∞
     };
 
+    public int targetFrames = 10000;
     private int frames;
-    private float timeSpentOnFrames;
+    private float timer;
 
     public void Start()
     {
@@ -61,7 +62,7 @@ public class SoccerStatistics : MonoBehaviour
         {
             if (root.GetComponent<SoccerEnvController>() != null)
             {
-                children.Add(root.GetComponent<SoccerEnvController>());
+                soccerEnvironments.Add(root.GetComponent<SoccerEnvController>());
             }
         }
     }
@@ -107,18 +108,33 @@ public class SoccerStatistics : MonoBehaviour
     public void Update()
     {
         frames++;
-        timeSpentOnFrames += 1.0f / Time.deltaTime;
+        timer += Time.deltaTime;
+
+        // Show progress
+        if (frames % 1000 == 0) {
+            Debug.Log(((double) frames / (double) targetFrames) * 100d + "%");
+        }
+
+        if (frames % targetFrames == 0)
+        {
+            LogStatistics();
+        }
     }
 
     public void OnApplicationQuit()
     {
-        double[] samplePoints_1 = new double[children.Count];
-        double[] samplePoints_2 = new double[children.Count];
+        LogStatistics();
+    }
+
+    public void LogStatistics()
+    {
+        double[] samplePoints_1 = new double[soccerEnvironments.Count];
+        double[] samplePoints_2 = new double[soccerEnvironments.Count];
 
         for (int i = 0; i < samplePoints_1.Length; i++)
         {
-            double x_1 = children[i].goalsBlue;
-            double x_2 = children[i].goalsPurple;
+            double x_1 = soccerEnvironments[i].goalsBlue;
+            double x_2 = soccerEnvironments[i].goalsPurple;
             samplePoints_1[i] = x_1;
             samplePoints_2[i] = x_2;
         }
@@ -128,8 +144,8 @@ public class SoccerStatistics : MonoBehaviour
     }
 
     public void LogFPS() {
-        float averageFrameTime = timeSpentOnFrames / frames;
-        Debug.Log("FPS during testing: " + averageFrameTime + " FPS.");
+        float averageFPS = 1.0f / (timer * frames);
+        Debug.Log("Average FPS during testing: " + averageFPS + " FPS measured over " + (long) timer + "s");
     }
 
     static void LogStatisticsTwoSamplePopulationMeanTest(double[] samplePoints_1, double[] samplePoints_2)
