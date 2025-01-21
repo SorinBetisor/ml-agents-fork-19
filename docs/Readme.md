@@ -8,7 +8,7 @@
 ([all releases](https://github.com/Unity-Technologies/ml-agents/releases))
 
 ## Project Overview
-This project focuses on the implementation and analysis of Deep Reinforcement Learning (DRL) algorithms applied to agents capable of navigating and making decisions in complex, real-time 3D environments. Using the Unity game Engine and Unity ML-Agents Toolkit, we aim to develop a system where agents can learn from their environment and improve their behaviour through constant interactiong with different game environments.
+This project focuses on the implementation and analysis of Deep Reinforcement Learning (DRL) algorithms applied to agents capable of navigating and making decisions in complex, real-time 3D environments. Using the Unity game Engine and Unity ML-Agents Toolkit, we aim to develop a system where agents can learn from their environment and improve their behavior through constant interaction with different game environments.
 
 Our goal is to test the effectiveness of these DRL algorithms and make the agents more adaptable to complex environments, focusing on their ability to make real-time decisions and interact easily with the game world.
 
@@ -313,7 +313,7 @@ reward_signals:
 For further details on features, installation, and other documentation, refer to the original repository's documentation and credentials provided in both the forked and original repositories.
 
 ## References
-- Original fork from Dennis Soemers: : https://github.com/DennisSoemers/ml-agents/tree/fix-numpy-release-21-branch
+- Original fork from Dennis Soemers: https://github.com/DennisSoemers/ml-agents/tree/fix-numpy-release-21-branch
 
 
 
