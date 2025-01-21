@@ -111,8 +111,9 @@ public class SoccerStatistics : MonoBehaviour
         timer += Time.deltaTime;
 
         // Show progress
-        if (frames % (targetFrames / 100) == 0) {
-            Debug.Log(((double) frames / (double) targetFrames) * 100d + "%");
+        if (frames % (targetFrames / 100) == 0)
+        {
+            Debug.Log(((double) frames / (double) targetFrames) * 100d + "% - " + (long) timer + " seconds in");
         }
 
         if (frames % targetFrames == 0)
@@ -178,25 +179,54 @@ public class SoccerStatistics : MonoBehaviour
         Debug.Log("Sample mean Blue: " + xHat_1 + ", Sample Mean Purple: " + xHat_2 + ", Sample Deviation Blue: " + Math.Sqrt(s2_1) + ", Sample Deviation Purple: " + Math.Sqrt(s2_2));
         Debug.Log("verdict: " + (!PerformTwoSamplePopulationMeanTest(n_1, n_2, xHat_1, xHat_2, s2_1, s2_2)? " Blue and purple teams perform equally well." : (xHat_1 < xHat_2? " Team Purple is better." : " Team Blue is better.")));
     }
-    
+
+    static void LogLatexStatistics(int n_1, int n_2, double xHat_1, double xHat_2, double s2_1, double s2_2, double d_0, double s_p, double t, double v, double t_critical, bool conclusion)
+    {
+        Debug.Log(
+            "1. $H_0: \\mu1 - \\mu2 = 0$.\\\\" + "\n" + 
+            "2. $H_1: \\mu1 - \\mu2 \\neq 0$.\\\\" + "\n" + 
+            "3. $\\alpha = 0.05$.\\\\" + "\n" + 
+            "4. Critical region: $t > " + t_critical.ToString("F3") + "$, where $t = \\frac{(\\bar{x}_1 - \\bar{x}_2) - d_0}{S_p \\sqrt{\\frac{1}{n_1} + \\frac{1}{n_2}}}$ with $v = " + v + "$ degrees of freedom.\\\\" + "\n" + 
+            "5. Computations:\\\\" + "\n" + 
+            "" + "\n" + 
+            "\\begin{align}" + "\n" + 
+            "\\bar{x}_1 = " + xHat_1.ToString("F3") + ",\\ s_1 = " + Math.Sqrt(s2_1).ToString("F3") + ",\\ n_1 = " + n_1 + ",\\\\" + "\n" + 
+            "\\bar{x}_2 = " + xHat_2.ToString("F3") + ",\\ s_2 = " + Math.Sqrt(s2_2).ToString("F3") + ",\\ n_2 = " + n_2 + "." + "\n" + 
+            "\\end{align}" + "\n" + 
+            "" + "\n" + 
+            "Hence" + "\n" + 
+            "" + "\n" + 
+            "$$S_p = \\sqrt{\\frac{(" + n_1 + " - 1) (" + Math.Sqrt(s2_1).ToString("F3") + ")^2 + (" + n_2 + " - 1) (" + Math.Sqrt(s2_2).ToString("F3") + ")^2}{" + n_1 + " + " + n_2 + " - 2}}=" + s_p.ToString("F3") + "$$" + "\n" + 
+            "$$t = \\frac{(" + xHat_1.ToString("F3") + " - " + xHat_2.ToString("F3") + ") - " + d_0.ToString("F3") + "}{" + s_p.ToString("F3") + "\\cdot \\sqrt{\\frac{1}{" + n_1 + "} + \\frac{1}{" + n_2 + "}}}=" + t.ToString("F3") + "$$" + "\n" + 
+            "" + "\n" + 
+            (!conclusion? "6. Decision: Do not reject $H_0$. We are unable to conclude that there is a significant difference between the two teams."
+                       : "6. Decision: Reject $H_0$. We are able to conclude that there is a significant difference between the two teams. We can observe that, on average, " + ((xHat_1 < xHat_2? " team purple is better." : " team blue is better.")))
+        );
+    }
+
     static bool PerformTwoSamplePopulationMeanTest(int n_1, int n_2, double xHat_1, double xHat_2, double s2_1, double s2_2)
     {
         double d_0 = 0; // \mu_0 - \mu_1 = 0
-        double degreesOfFreedom = (n_1 + n_2) - 2;
+        double v = (n_1 + n_2) - 2;
 
-        double s_p = Math.Sqrt(((n_1 - 1) * s2_1 + (n_2 - 1) * s2_2) / degreesOfFreedom);
+        double s_p = Math.Sqrt(((n_1 - 1) * s2_1 + (n_2 - 1) * s2_2) / v);
         double t = ((xHat_1 - xHat_2) - d_0) / (s_p * Math.Sqrt((1d / n_1) + (1d / n_2)));
         
+        double t_critical = criticalValueTable[criticalValueTable.Length - 1][requiredLevelOfConfidence];
+
         for (int i = 0; i < criticalValueMapper.Length; i++)
         {
-            if (degreesOfFreedom <= criticalValueMapper[i])
+            if (v <= criticalValueMapper[i])
             {
-                Debug.Log("t: " + t + ", Using critical value " + criticalValueTable[i][requiredLevelOfConfidence] + " associated to degreesOfFreedom " + degreesOfFreedom);
-                return Math.Abs(t) > criticalValueTable[i][requiredLevelOfConfidence];
+                t_critical = criticalValueTable[i][requiredLevelOfConfidence];
+                break;
             }
         }
         
-        Debug.Log("t: " + t + ", Using critical value " + criticalValueTable[criticalValueTable.Length - 1][requiredLevelOfConfidence] + " associated to degreesOfFreedom " + degreesOfFreedom);
-        return Math.Abs(t) > criticalValueTable[criticalValueTable.Length - 1][requiredLevelOfConfidence];
+        bool conclusion = Math.Abs(t) > t_critical;
+
+        LogLatexStatistics(n_1, n_2, xHat_1, xHat_2, s2_1, s2_2, d_0, s_p, t, v, t_critical, conclusion);
+        Debug.Log("t: " + t + ", Using critical value " + t_critical + " associated to degreesOfFreedom " + v);
+        return conclusion;
     }
 }
