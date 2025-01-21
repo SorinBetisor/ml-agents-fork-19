@@ -10,7 +10,16 @@ using System;
 
 public class PlayerHearingSensor : ISensor
 {
+    public enum Model
+    {
+        Coordinates,
+        RelativeNormalization,
+        RelativeRotationNormalization,
+        RelativeRotation
+    }
+    
     private Vector3 lastHeardPosition;
+    private Vector3 relativePosition;
     private string sensorName = "PlayerHearingSensor";
     private ObservationSpec observationSpec;
     GameObject AgentObject;
@@ -18,14 +27,6 @@ public class PlayerHearingSensor : ISensor
     float minValueX = -17.5f;
     float maxValueZ = 7.6f;
     float maxValueX = 17.5f;
-
-    public enum Model
-        {
-            Coordinates,
-            RelativeNormalization,
-            RelativeRotationNormalization,
-            RelativeRotation
-        }
     private Model m;
 
     public PlayerHearingSensor(GameObject agentObject, Model model) {
@@ -33,29 +34,19 @@ public class PlayerHearingSensor : ISensor
         AgentObject = agentObject;
         m = model;
     }
+
     // Called when the player hears a sound
     public void ReceiveSignal(Vector3 ballPosition)
     {
-        switch(m)
-        {
-            case Model.Coordinates:
-                lastHeardPosition = ApplyCoordinates(ballPosition);
-                break;
-            case Model.RelativeNormalization:
-                lastHeardPosition = ApplyRelativeNormalization(ballPosition);
-                break;
-            case Model.RelativeRotationNormalization:
-                lastHeardPosition = ApplyRelativeRotationNormalization(ballPosition);
-                break;
-            case Model.RelativeRotation:
-                lastHeardPosition = ApplyRelativeRotation(ballPosition);
-                break;
-        }
+        lastHeardPosition = ballPosition;
     }
-    public Vector3 ApplyCoordinates(Vector3 ballPosition){
+
+    public Vector3 ApplyCoordinates(Vector3 ballPosition)
+    {
         return ballPosition;
     }
-    public Vector3 ApplyRelativeNormalization(Vector3 ballPosition){
+    public Vector3 ApplyRelativeNormalization(Vector3 ballPosition)
+    {
         ballPosition.x = ballPosition.x - AgentObject.transform.position.x;
         ballPosition.z = ballPosition.z - AgentObject.transform.position.z;
         float x = (ballPosition.x - minValueX)/(maxValueX - minValueX);
@@ -63,7 +54,9 @@ public class PlayerHearingSensor : ISensor
         Vector3 normalized = new Vector3(x, ballPosition.y, z);
         return normalized;
     }
-    public Vector3 ApplyRelativeRotationNormalization(Vector3 ballPosition){
+
+    public Vector3 ApplyRelativeRotationNormalization(Vector3 ballPosition)
+    {
         ballPosition.x = ballPosition.x - AgentObject.transform.position.x;
         ballPosition.z = ballPosition.z - AgentObject.transform.position.z;
         float x = (ballPosition.x - minValueX)/(maxValueX - minValueX);
@@ -72,7 +65,9 @@ public class PlayerHearingSensor : ISensor
         Vector3 afterRotation = ApplyRotation(normalized, AgentObject.transform.rotation.y);
         return afterRotation;
     }
-    public Vector3 ApplyRelativeRotation(Vector3 ballPosition){
+
+    public Vector3 ApplyRelativeRotation(Vector3 ballPosition)
+    {
         ballPosition.x = ballPosition.x - AgentObject.transform.position.x;
         ballPosition.z = ballPosition.z - AgentObject.transform.position.z;
         Vector3 normalized = new Vector3(ballPosition.x, ballPosition.y, ballPosition.z);
@@ -90,16 +85,12 @@ public class PlayerHearingSensor : ISensor
         return newPosition;
     }
 
-    //public Vector2 applyRotation(Vector2 pos, float angle){
-    //    return 
-    //}
-
     public string GetName() {
         return sensorName;
     }
 
     public int Write(ObservationWriter writer) {
-        writer.Add(lastHeardPosition);
+        writer.Add(relativePosition);
         return 3; // Number of elements written (x, y, z)
     }
 
@@ -108,7 +99,21 @@ public class PlayerHearingSensor : ISensor
     }
 
     public void Update() {
-        // We do not need anything
+        switch(m)
+        {
+            case Model.Coordinates:
+                relativePosition = ApplyCoordinates(ballPosition);
+                break;
+            case Model.RelativeNormalization:
+                relativePosition = ApplyRelativeNormalization(ballPosition);
+                break;
+            case Model.RelativeRotationNormalization:
+                relativePosition = ApplyRelativeRotationNormalization(ballPosition);
+                break;
+            case Model.RelativeRotation:
+                relativePosition = ApplyRelativeRotation(ballPosition);
+                break;
+        }
     }
 
     public void Reset() {
