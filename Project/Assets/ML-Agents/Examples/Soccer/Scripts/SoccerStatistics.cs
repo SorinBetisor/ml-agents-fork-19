@@ -13,7 +13,7 @@ public class SoccerStatistics : MonoBehaviour
         11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
         21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 40, 60, 120
     };
-    static public int requiredLevelOfConfidence = 5;
+    public int requiredLevelOfConfidence = 5;
     static private float[][] criticalValueTable = new float[][] {
 // alpha = 0.40, 0.30,  0.20,  0.15,  0.10,  0.05, 0.025
         new float[] {0.325f, 0.727f, 1.376f, 1.963f, 3.078f, 6.314f, 12.706f}, // 1
@@ -149,7 +149,7 @@ public class SoccerStatistics : MonoBehaviour
         Debug.Log("Average FPS during testing: " + averageFPS + " FPS measured over " + TimeSpan.FromSeconds(timer).ToString(@"hh\:mm\:ss\:fff") + "s");
     }
 
-    static void LogStatisticsTwoSamplePopulationMeanTest(double[] samplePoints_1, double[] samplePoints_2)
+    public void LogStatisticsTwoSamplePopulationMeanTest(double[] samplePoints_1, double[] samplePoints_2)
     {
         int n_1 = samplePoints_1.Length;
         int n_2 = samplePoints_2.Length;
@@ -180,7 +180,7 @@ public class SoccerStatistics : MonoBehaviour
         Debug.Log("verdict: " + (!PerformTwoSamplePopulationMeanTest(n_1, n_2, xHat_1, xHat_2, s2_1, s2_2)? " Blue and purple teams perform equally well." : (xHat_1 < xHat_2? " Team Purple is better." : " Team Blue is better.")));
     }
 
-    static void LogLatexStatistics(int n_1, int n_2, double xHat_1, double xHat_2, double s2_1, double s2_2, double d_0, double s_p, double t, double v, double t_critical, bool conclusion)
+    public void LogLatexStatistics(int n_1, int n_2, double xHat_1, double xHat_2, double s2_1, double s2_2, double d_0, double s_p, double t, double v, double t_critical, bool conclusion)
     {
         Debug.Log(
             "1. $H_0: \\mu1 - \\mu2 = 0$.\\\\" + "\n" + 
@@ -204,7 +204,7 @@ public class SoccerStatistics : MonoBehaviour
         );
     }
 
-    static bool PerformTwoSamplePopulationMeanTest(int n_1, int n_2, double xHat_1, double xHat_2, double s2_1, double s2_2)
+    public bool PerformTwoSamplePopulationMeanTest(int n_1, int n_2, double xHat_1, double xHat_2, double s2_1, double s2_2)
     {
         double d_0 = 0; // \mu_0 - \mu_1 = 0
         double v = (n_1 + n_2) - 2;
