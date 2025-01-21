@@ -102,16 +102,16 @@ public class PlayerHearingSensor : ISensor
         switch(m)
         {
             case Model.Coordinates:
-                relativePosition = ApplyCoordinates(ballPosition);
+                relativePosition = ApplyCoordinates(lastHeardPosition);
                 break;
             case Model.RelativeNormalization:
-                relativePosition = ApplyRelativeNormalization(ballPosition);
+                relativePosition = ApplyRelativeNormalization(lastHeardPosition);
                 break;
             case Model.RelativeRotationNormalization:
-                relativePosition = ApplyRelativeRotationNormalization(ballPosition);
+                relativePosition = ApplyRelativeRotationNormalization(lastHeardPosition);
                 break;
             case Model.RelativeRotation:
-                relativePosition = ApplyRelativeRotation(ballPosition);
+                relativePosition = ApplyRelativeRotation(lastHeardPosition);
                 break;
         }
     }
