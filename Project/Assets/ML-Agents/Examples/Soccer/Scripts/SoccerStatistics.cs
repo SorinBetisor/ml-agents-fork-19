@@ -146,7 +146,7 @@ public class SoccerStatistics : MonoBehaviour
 
     public void LogFPS() {
         float averageFPS = frames / timer;
-        Debug.Log("Average FPS during testing: " + averageFPS + " FPS measured over " + TimeSpan.FromSeconds(averageFPS).ToString(@"hh\:mm\:ss\:fff") + "s");
+        Debug.Log("Average FPS during testing: " + averageFPS + " FPS measured over " + TimeSpan.FromSeconds(timer).ToString(@"hh\:mm\:ss\:fff") + "s");
     }
 
     static void LogStatisticsTwoSamplePopulationMeanTest(double[] samplePoints_1, double[] samplePoints_2)
