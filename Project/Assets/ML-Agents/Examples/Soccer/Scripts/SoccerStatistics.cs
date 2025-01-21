@@ -197,10 +197,10 @@ public class SoccerStatistics : MonoBehaviour
             "Hence" + "\n" + 
             "" + "\n" + 
             "$$S_p = \\sqrt{\\frac{(" + n_1 + " - 1) (" + Math.Sqrt(s2_1).ToString("F3") + ")^2 + (" + n_2 + " - 1) (" + Math.Sqrt(s2_2).ToString("F3") + ")^2}{" + n_1 + " + " + n_2 + " - 2}}=" + s_p.ToString("F3") + "$$" + "\n" + 
-            "$$t = \\frac{(" + xHat_1.ToString("F3") + " - " + xHat_2.ToString("F3") + ") - " + d_0.ToString("F3") + "}{" + s_p.ToString("F3") + "\\cdot \\sqrt{\\frac{1}{" + n_1 + "} + \\frac{1}{" + n_2 + "}}}=" + t.ToString("F3") + "$$" + "\n" + 
-            "" + "\n" + 
+            "$$t = \\frac{(" + xHat_1.ToString("F3") + " - " + xHat_2.ToString("F3") + ") - " + d_0.ToString("F3") + "}{" + s_p.ToString("F3") + "\\cdot \\sqrt{\\frac{1}{" + n_1 + "} + \\frac{1}{" + n_2 + "}}}=" + t.ToString("F3") + "$$\\\\" + "\n" + 
+            "\\\\" + "\n" + 
             (!conclusion? "6. Decision: Do not reject $H_0$. We are unable to conclude that there is a significant difference between the two teams."
-                       : "6. Decision: Reject $H_0$. We are able to conclude that there is a significant difference between the two teams. We can observe that, on average, " + ((xHat_1 < xHat_2? " team purple is better." : " team blue is better.")))
+                       : "6. Decision: Reject $H_0$. We are able to conclude that there is a significant difference between the two teams. We can observe that, on average, " + ((xHat_1 < xHat_2? "team purple performs better." : "team blue performs better.")))
         );
     }
 
