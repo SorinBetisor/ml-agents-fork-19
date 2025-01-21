@@ -10,7 +10,8 @@ using Unity.MLAgents.Sensors;
 public class HearingSensorComponent : SensorComponent
 {
     public PlayerHearingSensor m_PlayerHearingSensor;
-    public int ModelNum;
+    public PlayerHearingSensor.Model model;
+    
 
     /// <summary>
     /// Creates a BasicSensor.
@@ -19,26 +20,8 @@ public class HearingSensorComponent : SensorComponent
     
     public override ISensor[] CreateSensors()
     {
-        switch(ModelNum){
-            case 1:
-                m_PlayerHearingSensor = new PlayerHearingSensor(gameObject, PlayerHearingSensor.Model.Coordinates);
-                return new ISensor[] {m_PlayerHearingSensor };
-
-            case 2:
-                m_PlayerHearingSensor = new PlayerHearingSensor(gameObject, PlayerHearingSensor.Model.RelativeNormalization);
-                return new ISensor[] {m_PlayerHearingSensor };
-
-            case 3:
-                m_PlayerHearingSensor = new PlayerHearingSensor(gameObject, PlayerHearingSensor.Model.RelativeRotationNormalization);
-                return new ISensor[] {m_PlayerHearingSensor };
-
-            case 4:
-                m_PlayerHearingSensor = new PlayerHearingSensor(gameObject, PlayerHearingSensor.Model.RelativeRotation);
-                return new ISensor[] {m_PlayerHearingSensor };
-            default:
-                m_PlayerHearingSensor = new PlayerHearingSensor(gameObject, PlayerHearingSensor.Model.Coordinates);
-                return new ISensor[] {m_PlayerHearingSensor };           
-        }
+        m_PlayerHearingSensor = new PlayerHearingSensor(gameObject, model);
+        return new ISensor[] {m_PlayerHearingSensor };
     }
 
     public PlayerHearingSensor GetHearingSensor() {
