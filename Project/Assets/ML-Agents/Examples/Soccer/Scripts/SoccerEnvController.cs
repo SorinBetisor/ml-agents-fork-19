@@ -115,6 +115,17 @@ public class SoccerEnvController : MonoBehaviour
         ResetScene();
     }
 
+    public void NotifyPlayersHearing(Vector3 position) {
+        foreach (var agent in AgentsList) {
+            HearingSensorComponent component = agent.Agent.GetComponent<HearingSensorComponent>();
+
+            if (component != null) {
+                PlayerHearingSensor playerHearingSensor = component.GetHearingSensor();
+                playerHearingSensor.ReceiveSignal(position);
+            }
+        }
+    }
+
     public void ResetScene()
     {
         m_ResetTimer = 0;
