@@ -111,7 +111,7 @@ public class SoccerStatistics : MonoBehaviour
         timer += Time.deltaTime;
 
         // Show progress
-        if (frames % 1000 == 0) {
+        if (frames % (targetFrames / 100) == 0) {
             Debug.Log(((double) frames / (double) targetFrames) * 100d + "%");
         }
 
@@ -144,7 +144,7 @@ public class SoccerStatistics : MonoBehaviour
     }
 
     public void LogFPS() {
-        float averageFPS = 1.0f / (timer * frames);
+        float averageFPS = frames / timer;
         Debug.Log("Average FPS during testing: " + averageFPS + " FPS measured over " + (long) timer + "s");
     }
 

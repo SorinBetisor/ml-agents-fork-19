@@ -949,7 +949,7 @@ GameObject:
   - component: {fileID: 887760343}
   - component: {fileID: 887760342}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: SoccerStatistics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -967,6 +967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656416adf83732541b10bbc116773306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetFrames: 50000
 --- !u!4 &887760343
 Transform:
   m_ObjectHideFlags: 0
@@ -1584,7 +1585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityMultiplier: 1
-  fixedDeltaTime: 0.02
+  fixedDeltaTime: 0.01
   maximumDeltaTime: 0.33333334
   solverIterations: 6
   solverVelocityIterations: 1
