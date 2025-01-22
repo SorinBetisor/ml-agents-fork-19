@@ -13,7 +13,6 @@ public class PlayerHearingSensor : ISensor
     [System.Flags]
     public enum Model
     {
-        None = 0,
         Relative = 1,
         Normalized = 2,
         Directed = 4,
@@ -58,9 +57,9 @@ public class PlayerHearingSensor : ISensor
     public Vector3 ApplyNormalization(Vector3 ballPosition)
     {
         return new Vector3(
-            (ballPosition.x - minValueX)/(maxValueX - minValueX),
+            (ballPosition.x - minValueX) / (maxValueX - minValueX),
              ballPosition.y,
-            (ballPosition.z - minValueZ)/(maxValueZ - minValueZ)
+            (ballPosition.z - minValueZ) / (maxValueZ - minValueZ)
         );
     }
 
@@ -93,7 +92,7 @@ public class PlayerHearingSensor : ISensor
     }
 
     public void Update() {
-        if (((int) features & (int) Model.Continuous) == 1)
+        if (((int) features & (int) Model.Continuous) != 0)
             ApplyFeatures();
     }
 
@@ -101,13 +100,13 @@ public class PlayerHearingSensor : ISensor
     {
         relativePosition = lastHeardPosition;
 
-        if (((int) features & (int) Model.Relative) == 1)
+        if (((int) features & (int) Model.Relative) != 0)
             relativePosition = ApplyRelative(relativePosition);
         
-        if (((int) features & (int) Model.Normalized) == 1)
+        if (((int) features & (int) Model.Normalized) != 0)
             relativePosition = ApplyNormalization(relativePosition);
         
-        if (((int) features & (int) Model.Directed) == 1)
+        if (((int) features & (int) Model.Directed) != 0)
             relativePosition = ApplyDirection(relativePosition);
     }
 
