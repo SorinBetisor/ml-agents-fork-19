@@ -10,17 +10,16 @@ using Unity.MLAgents.Sensors;
 public class HearingSensorComponent : SensorComponent
 {
     public PlayerHearingSensor m_PlayerHearingSensor;
-    public PlayerHearingSensor.Model model;
-    
+
+    public PlayerHearingSensor.Model features;
 
     /// <summary>
     /// Creates a BasicSensor.
     /// </summary>
     /// <returns></returns>
-    
     public override ISensor[] CreateSensors()
     {
-        m_PlayerHearingSensor = new PlayerHearingSensor(gameObject, model);
+        m_PlayerHearingSensor = new PlayerHearingSensor(gameObject, features);
         return new ISensor[] {m_PlayerHearingSensor };
     }
 
