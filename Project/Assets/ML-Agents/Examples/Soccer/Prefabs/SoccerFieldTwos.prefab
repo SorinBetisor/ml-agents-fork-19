@@ -2252,7 +2252,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 05052921ea4a8f64182d9f1594bb6b27, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: cbf8eab24957dcb43ab256fd40f06ac0, type: 3}
   m_InferenceDevice: 2
   m_BehaviorType: 0
   m_BehaviorName: SoccerTwos
@@ -4289,7 +4289,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 05052921ea4a8f64182d9f1594bb6b27, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: cbf8eab24957dcb43ab256fd40f06ac0, type: 3}
   m_InferenceDevice: 2
   m_BehaviorType: 0
   m_BehaviorName: SoccerTwos
