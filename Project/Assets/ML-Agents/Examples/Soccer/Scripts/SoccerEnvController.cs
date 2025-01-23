@@ -40,7 +40,8 @@ public class SoccerEnvController : MonoBehaviour
     public List<PlayerInfo> AgentsList = new List<PlayerInfo>();
 
     private SoccerSettings m_SoccerSettings;
-
+    public int goalsBlue;
+    public int goalsPurple;
 
     private SimpleMultiAgentGroup m_BlueAgentGroup;
     private SimpleMultiAgentGroup m_PurpleAgentGroup;
@@ -49,7 +50,8 @@ public class SoccerEnvController : MonoBehaviour
 
     void Start()
     {
-
+        goalsBlue = 0;
+        goalsPurple = 0;
         m_SoccerSettings = FindObjectOfType<SoccerSettings>();
         // Initialize TeamManager
         m_BlueAgentGroup = new SimpleMultiAgentGroup();
@@ -95,27 +97,28 @@ public class SoccerEnvController : MonoBehaviour
         ballRb.angularVelocity = Vector3.zero;
 
     }
-
     public void GoalTouched(Team scoredTeam)
     {
         if (scoredTeam == Team.Blue)
         {
+            goalsBlue += 1;
             m_BlueAgentGroup.AddGroupReward(1 - (float)m_ResetTimer / MaxEnvironmentSteps);
             m_PurpleAgentGroup.AddGroupReward(-1);
         }
         else
         {
+            goalsPurple += 1;
             m_PurpleAgentGroup.AddGroupReward(1 - (float)m_ResetTimer / MaxEnvironmentSteps);
             m_BlueAgentGroup.AddGroupReward(-1);
         }
+        Debug.Log("Goals purple " + goalsPurple  +  " Goals blue " + goalsBlue);
+        Debug.Log("Total games " + (goalsPurple + goalsBlue));
         m_PurpleAgentGroup.EndGroupEpisode();
         m_BlueAgentGroup.EndGroupEpisode();
         ResetScene();
-
     }
 
     public void NotifyPlayersHearing(Vector3 position) {
-        Debug.Log("sound");
         foreach (var agent in AgentsList) {
             HearingSensorComponent component = agent.Agent.GetComponent<HearingSensorComponent>();
 
